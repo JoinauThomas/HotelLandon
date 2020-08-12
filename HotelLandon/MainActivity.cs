@@ -3,18 +3,26 @@ using Android.OS;
 using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
+using System.Collections.Generic;
 
 namespace HotelLandon
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        private List<string> reservationList = new List<string>()
+            {
+                "Thomas", "Silvia", "Michael", "Adeline", "Kevin", "Coralie", "David", "Arnaud", "Lisa", "Ebba", "Geoffroy"
+            };
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+
+            var ReservationListView = FindViewById<ListView>(Resource.Id.ReservationListView);
+            ReservationListView.Adapter = new ArrayAdapter<string>(this, Resource.Layout.ListItem, reservationList);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
